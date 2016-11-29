@@ -23,7 +23,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query:{
-          presets: process.env.NODE_ENV==='production'? ['es2015','react'] : ['react-hmre','es2015','react']
+          presets: process.env.NODE_ENV==='production'? ['es2015','react', 'stage-0'] : ['react-hmre','es2015','react', 'stage-0']
         }
       },
       {
