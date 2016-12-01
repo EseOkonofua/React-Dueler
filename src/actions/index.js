@@ -1,19 +1,11 @@
-const toggleComplete = index =>{
-  console.log()
-  return {
-    type:"TOGGLE_COMPLETE",
-    index
-  }
-}
+import Battle from '../js/Battle'
+import Battles from '../js/Battles'
 
-const removeTask = index=>{
-  return {
-    type:"REMOVE_TASK",
-    index
-  }
-}
+export function loadGame(level){
+    let newBattle = new Battle(Battles[level]);
 
-export {
-  toggleComplete,
-  removeTask
+    return {
+        type: "LOAD_GAME",
+        game: new Battle( newBattle )
+    }
 }

@@ -8,8 +8,7 @@ var extractCSS = new ExtractTextPlugin('styles.css',{
 
 module.exports = {
   entry: process.env.NODE_ENV === 'production' ? ['./src'] : ['./src','webpack-hot-middleware/client?reload=true'],
-
-  devtool: 'source-map',
+  devtool: process.env.NODE_ENV === 'production' ? 'cheap-module-source-map' : 'cheap-module-eval-source-map',
   output: {
     path:path.resolve('public'),
     filename: 'scripts/bundle.js',
