@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux'
 
 function game(state = null,action){
-    console.log(action)
     var types = {
         "LOAD_GAME": function(){
             return action.game;

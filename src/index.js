@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Redirect, Route, browserHistory, IndexRoute, Link , IndexLink, hashHistory} from 'react-router'
+import { Router, Redirect, Route, browserHistory, IndexRoute, Link , IndexLink} from 'react-router'
 import {Provider} from 'react-redux'
 import { createStore , applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
@@ -28,7 +28,7 @@ const Tutorial = ()=> (
 )
 
 function handleEnterGame(nextState, replace){
-    store.dispatch( loadGame.bind(null, nextState.params.level))
+    store.dispatch( loadGame(nextState.params.level) );
 }
 
 render(
@@ -38,7 +38,7 @@ render(
         <IndexRoute component={Menu}/>
         <Route path='/tutorial' component={Tutorial} />
         <Route path='/play/:level' onEnter={ handleEnterGame }  component={Game} />
-        <Redirect from='/play' to='/play/1' />
+        <Redirect from='/play' to='/play/0' />
       </Route>
     </Router>
   </Provider>

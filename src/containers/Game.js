@@ -4,10 +4,9 @@ import { bindActionCreators } from 'redux'
 
 class Game extends Component{
     render(){
-        console.log(this.props);
         return (
             <div id="game">
-
+              <h1>{this.props.Game.enemyName}</h1>
             </div>
         )
     }

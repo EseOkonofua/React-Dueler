@@ -6,6 +6,6 @@ export function loadGame(level){
 
     return {
         type: "LOAD_GAME",
-        game: new Battle( newBattle )
+        game: newBattle
     }
 }
