@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Redirect, Route, browserHistory, IndexRoute, Link , IndexLink} from 'react-router'
+import { Router, Redirect, Route, browserHistory, IndexRoute, Link , IndexLink, hashHistory} from 'react-router'
 import {Provider} from 'react-redux'
 import { createStore , applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
