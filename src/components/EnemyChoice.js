@@ -14,24 +14,23 @@ const Thinking = ()=>{
 }
 
 export default class EnemyChoice extends Component{
-    constructor(){
-        super();
-        this.showCard = this.showCard.bind(this)
-
-    }
 
     showCard(){
         var rounds = this.props.Game.rounds.length;
         var result = (rounds > 0 )? this.props.Game.rounds[rounds - 1].result : null;
 
-        if(this.props.Game.state === GAME_STATES.ENEMY_TURN || this.props.Game.state === GAME_STATES.ENEMY_INFO) return React.createElement(Card, {img: SKILL_IMAGES.ENEMY,active:true,title:this.props.Game.enemyName,description:React.createElement(Thinking)});
-        else if(this.props.Game.state === GAME_STATES.PLAYER_TURN) return React.createElement(Card, {img: SKILL_IMAGES.ENEMY,title:this.props.Game.enemyName,description:"Enemy has decided... Make your move!"});
-        else if(this.props.Game.state === GAME_STATES.RESULT) return React.cloneElement(MoveCards[this.props.Game.nextMove],{win:(result !== "WIN" && result !== "TIE" )} )
+        if(this.props.Game.state === GAME_STATES.ENEMY_TURN || this.props.Game.state === GAME_STATES.ENEMY_INFO)
+          return React.createElement(Card, {img: SKILL_IMAGES.ENEMY,active:true,title:this.props.Game.enemyName,description:React.createElement(Thinking)});
+        else if(this.props.Game.state === GAME_STATES.PLAYER_TURN)
+          return React.createElement(Card, {img: SKILL_IMAGES.ENEMY,title:this.props.Game.enemyName,description:"Enemy has decided... Make your move!"});
+        else if(this.props.Game.state === GAME_STATES.RESULT || this.props.Game.state === GAME_STATES.WIN || this.props.Game.state === GAME_STATES.LOSE)
+          return React.cloneElement(MoveCards[this.props.Game.nextMove],{win:(result !== "WIN" && result !== "TIE" )} )
     }
 
     render(){
         return (
             <div id='enemyMove'>
+                <h3 id="enemyStats">{this.props.Game.enemyName} - {this.props.Game.enemyHealth}HP</h3>
                 {this.showCard()}
             </div>
         )

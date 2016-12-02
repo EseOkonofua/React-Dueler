@@ -6,9 +6,9 @@ export default class Battle {
         //enemy stuff
         this.enemyName = options.name;
         this.enemyHealth = options.health;
-        this.getMove = options.getMove.bind(this);
-        this.nextMove = this.getMove();
-
+        this.enemyMaxHealth = options.health;
+        this.getMove = options.getMove;
+        this.nextMove = null;
         //GUI-Controls stuff
         this.state = "ENEMY_INFO"
         this.selectedMove = null;

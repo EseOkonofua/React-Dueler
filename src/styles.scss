@@ -15,6 +15,8 @@ a:active, a:visited {
   color:inherit;
 }
 
+
+
 @mixin fill{
     position:absolute;
     top:0;
@@ -26,6 +28,17 @@ a:active, a:visited {
 .container{
     @include fill;
 }
+
+#enforce-orientation{
+    @include fill;
+    background-color: black;
+    z-index: 10000;
+    display: none;
+    color:white;
+
+}
+
+
 
 #menu{
     display:flex;
@@ -58,10 +71,8 @@ a:active, a:visited {
     align-items: center;
     padding:5px;
     box-sizing: border-box;
-
-    h1{
-        margin: 5px 0px;
-    }
+    max-width:800px;
+    margin:0 auto;
 }
 
 #enemyMove{
@@ -70,6 +81,14 @@ a:active, a:visited {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative
+}
+
+#enemyStats{
+  position:absolute;
+  top:2px;
+  right:2px;
+  margin:0;
 }
 
 .card{
@@ -98,7 +117,7 @@ a:active, a:visited {
 
 }
 
-#info{
+.info{
     @include fill;
     z-index: 1000;
     display: flex;
@@ -117,7 +136,8 @@ a:active, a:visited {
     display:flex;
     justify-content: space-around;
     align-items:center;
-    flex:1;
+    position: relative;
+    padding-bottom:32px;
     width:100%;
 
     .card{
@@ -131,6 +151,8 @@ a:active, a:visited {
 
 #desc{
     text-align: center;
+    margin:3px 0px;
+    min-height:33px;
 }
 
 @keyframes cardhover {
@@ -158,27 +180,27 @@ a:active, a:visited {
 .card.selected::before{
   content:"";
   display:inline-block;
-  background-color:red;
+  background-color:#8e44ad;
   position:absolute;
   height:20px;
-  width:20px;
-  top:-40px;
+  left:43%;
+  right:43%;
+  top:-35px;
   left:40%;
-  border-radius:50%;
   animation: select 200ms ease-in-out infinite alternate;
 }
 
 @keyframes select{
-  0%{transform:translateY(0);};
-  100%{transform: translateY(10px);}
+  0%{left:43%;right:43%}
+  100%{left:50%;right:50%}
 }
 
 .lose {
-    outline: 3px solid red;
+    outline: 2px solid red;
 }
 
 .win{
-    outline: 3px solid lightgreen;
+    outline: 2px solid lightgreen;
 }
 
 
@@ -209,4 +231,43 @@ a:active, a:visited {
 @keyframes thinking2 {
     0%{transform: scale(1);}
     100%{transform: scale(0);}
+}
+
+#playerStats{
+  position:absolute;
+  bottom:2px;
+  left:2px;
+  margin:0;
+}
+
+#nextRound{
+  position:absolute;
+  bottom:2px;
+  right:2px;
+}
+
+@media(min-width: 760px){
+  .card{
+    width:34%;
+
+  }
+  #playerMoves{
+    .card{
+      width:22%;
+      font-size:0.6em
+    }
+  }
+}
+
+@media screen and (max-width:760px) and (orientation:landscape){
+  #enforce-orientation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    img{
+      width:100px;
+    }
+  }
 }

@@ -30,3 +30,17 @@ export function addRound(round){
         round
     }
 }
+
+export function updateHealth(health){
+  return {
+    type: "UPDATE_HEALTH",
+    health
+  }
+}
+
+export function updateNextMove(move){
+  return {
+    type: "ENEMY_MOVE",
+    move
+  }
+}
