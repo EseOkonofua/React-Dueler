@@ -1,0 +1,8 @@
+const GAME_STATES = {
+    ENEMY_INFO: 'ENEMY_INFO',
+    ENEMY_TURN: 'ENEMY_CHOOSING',
+    PLAYER_TURN: 'PLAYER_TURN',
+    RESULT: 'RESULT'
+}
+
+export default GAME_STATES;

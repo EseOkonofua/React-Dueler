@@ -9,3 +9,24 @@ export function loadGame(level){
         game: newBattle
     }
 }
+
+export function changeGameState(state){
+    return {
+        type: "GAME_STATE",
+        state
+    }
+}
+
+export function selectMove(move){
+    return {
+        type: "SELECT_MOVE",
+        move
+    }
+}
+
+export function addRound(round){
+    return {
+        type: "ADD_ROUND",
+        round
+    }
+}

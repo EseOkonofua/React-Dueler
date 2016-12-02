@@ -2,7 +2,7 @@ body,html {
   margin:0;
   background-color: black;
   color:white;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 
 }
 
@@ -43,24 +43,170 @@ a:active, a:visited {
     box-sizing: border-box;
 }
 
+
+
+
+
+
+
 #game{
-    height:100%;display: flex;
+    height:100%;
+    display: flex;
     flex-direction: column;
     background-color: white;
     color:black;
+    align-items: center;
+    padding:5px;
+    box-sizing: border-box;
 
-    div{
-        flex:1
+    h1{
+        margin: 5px 0px;
     }
 }
 
-
-#movesList{
-    display:flex;
+#enemyMove{
+    flex:1;
+    width:100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-around;
 }
-.moves{
-    width:30%;
-    border:1px solid white;
+
+.card{
+    border: 10px solid black;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 5px;
+    position: relative;
+    width: 30%;
+    min-width: 200px;
+    max-width:300px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0px 25px 12px -10px #ccc;
+    h1,h2,h3,h4{
+        margin:0;
+        margin-top:5px;
+    }
+    img{
+        width:100%;
+    }
+    p{
+        margin:2px 0px
+    }
+
+
+}
+
+#info{
+    @include fill;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.5);
+    div{
+        background-color: black;
+        color:white;
+        padding:5px;
+        text-align: center;
+    }
+}
+
+#playerMoves{
+    display:flex;
+    justify-content: space-around;
+    align-items:center;
+    flex:1;
+    width:100%;
+
+    .card{
+        padding:2px;
+        width:30%;
+        min-width: 100px;
+        border: 5px solid black;
+        font-size:0.5em;
+    }
+}
+
+#desc{
+    text-align: center;
+}
+
+@keyframes cardhover {
+  0% {
+    transform: translateY(0);
+    box-shadow: 0px 25px 12px -20px black
+  }
+  100% {
+    transform: translateY(-10px);
+    box-shadow: 0px 25px 12px -10px #ccc
+  }
+}
+
+.hover{
+    animation: cardhover 1s linear infinite alternate;
+}
+
+@mixin thinkingCircle{
+    width:100%;
+    height:100%;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.card.selected::before{
+  content:"";
+  display:inline-block;
+  background-color:red;
+  position:absolute;
+  height:20px;
+  width:20px;
+  top:-40px;
+  left:40%;
+  border-radius:50%;
+  animation: select 200ms ease-in-out infinite alternate;
+}
+
+@keyframes select{
+  0%{transform:translateY(0);};
+  100%{transform: translateY(10px);}
+}
+
+.lose {
+    outline: 3px solid red;
+}
+
+.win{
+    outline: 3px solid lightgreen;
+}
+
+
+.thinking{
+    width:50px;
+    height:50px;
+    position:relative;
+    margin:0 auto;
+
+    .thinking-1{
+        @include thinkingCircle;
+        background-color:rgba(0,0,0,0.5);
+        animation: thinking1 750ms linear infinite alternate;
+    }
+
+    .thinking-2{
+        @include thinkingCircle;
+        background-color:rgba(0,0,0,0.8);
+        animation: thinking2 750ms linear infinite alternate;
+    }
+}
+
+@keyframes thinking1 {
+    0%{transform: scale(0);}
+    100%{transform: scale(1);}
+}
+
+@keyframes thinking2 {
+    0%{transform: scale(1);}
+    100%{transform: scale(0);}
 }
