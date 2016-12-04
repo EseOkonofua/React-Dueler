@@ -16,13 +16,15 @@ export default class App extends Component{
         this.play();
       })
       this.uiMove = new Audio('/assets/sounds/uimove.wav');
+      this.hit = new Audio('/assets/sounds/hit.wav');
+      this.enemyHit = new Audio('/assets/sounds/enemyhit.wav');
 
 
     }
 
     willLeave(){
         return {
-            opacity:spring(0, presets.gentle)
+            opacity:spring(0, presets.stiff)
         }
     }
 
@@ -52,7 +54,11 @@ export default class App extends Component{
                 styles={this.getStyles()}>
                 {s=><span>
                         {
-                            s.map(({data, key, style})=><div className='container' key={key} style={style}>{React.cloneElement(data, {uiMove: this.uiMove})}</div>)
+                            s.map(({data, key, style})=><div className='container' key={key} style={style}>{React.cloneElement(data, {
+                              uiMoveSound: this.uiMove,
+                              hitSound: this.hit,
+                              enemyHitSound: this.enemyHit
+                            })}</div>)
                         }
                     </span>
                 }

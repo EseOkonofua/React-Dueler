@@ -1,6 +1,6 @@
 const Battles = [
     {
-        name:"Ratt",
+        name:"Sly",
         health:2,
         getMove:function(env){
             return 0;

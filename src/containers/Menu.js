@@ -5,8 +5,8 @@ export default class Menu extends Component {
   render(){
     return(
         <div id="menu">
-            <Link to='/play'><h1>Play game</h1></Link>
-            <Link to='/tutorial'><h2>Tutorial</h2></Link>
+            <h1><Link to='/play'>Play game</Link></h1>
+            <h2><Link to='/tutorial'>How to play</Link></h2>
         </div>
     )
   }

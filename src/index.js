@@ -11,6 +11,7 @@ import { loadGame  } from './actions'
 
 import App from './containers/App'
 import Menu from './containers/Menu'
+import Tutorial from './containers/Tutorial'
 import Game from './containers/Game'
 
 import Preloader from './components/Preloader'
@@ -19,21 +20,15 @@ require('./styles.scss');
 
 const store = createStore(allReducers, applyMiddleware(thunk));
 
-const Tutorial = ()=> (
-    <div id="tutorial">
-        <div>
-                <IndexLink to='/' >X</IndexLink>   <h1>Tutorial</h1>
-        </div>
-
-    </div>
-)
 
 function handleEnterGame(nextState, replace){
     store.dispatch( loadGame(nextState.params.level) );
 }
 
 
-var images = ['/assets/images/sly.png',
+var images = ['/assets/images/Sly.png',
+              '/assets/images/Atum.png',
+              '/assets/images/Harvest.png',
               '/assets/images/saber-slash.png',
               '/assets/images/spiked-mace.png',
               '/assets/images/shield-reflect.png'];

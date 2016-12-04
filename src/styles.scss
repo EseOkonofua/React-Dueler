@@ -7,14 +7,32 @@ body,html {
 }
 
 a{
+  color:white;
   text-decoration: none;
   margin:5px;
+  transition: transform 200ms linear;
+  display: inline-block;
+  position:relative;
 }
 
 a:active, a:visited {
-  color:inherit;
+  color:inherit
 }
 
+a::after{
+  content:"";
+  display: block;
+  position:absolute;
+  bottom:0;
+  right:-10px;
+  width:2px;
+  top:100%;
+  background: linear-gradient(0deg, white, #8e44ad);
+  transition:top 200ms ease-out;
+}
+a:hover::after{
+  top:0%;
+}
 
 
 @mixin fill{
@@ -23,6 +41,16 @@ a:active, a:visited {
     left:0;
     right:0;
     bottom:0;
+}
+
+@mixin center{
+      max-width:800px;
+      margin:0 auto;
+}
+
+@mixin flex{
+  display: -webkit-flex;
+  display: flex;
 }
 
 .container{
@@ -41,44 +69,46 @@ a:active, a:visited {
 
 
 #menu{
-    display:flex;
+    @include flex;
+    @include fill;
     flex-direction: column;
     padding:1em;
-    height:100%;
     box-sizing: border-box;
 }
+
 
 #tutorial{
-    height:100%;
-    display:flex;
+    @include center;
+    @include flex;
+    min-height:100%;
     flex-direction: column;
     padding:1em;
     box-sizing: border-box;
+    background-color: white;
+    color:black;
+
+    a{
+      color:black;
+    }
 }
-
-
-
-
-
 
 
 #game{
-    height:100%;
-    display: flex;
+    @include center;
+    @include fill;
+    @include flex;
     flex-direction: column;
     background-color: white;
     color:black;
     align-items: center;
-    padding:5px;
+    padding:2px;
     box-sizing: border-box;
-    max-width:800px;
-    margin:0 auto;
 }
 
 #enemyMove{
+    @include flex;
     flex:1;
     width:100%;
-    display: flex;
     justify-content: center;
     align-items: center;
     position: relative
@@ -119,22 +149,26 @@ a:active, a:visited {
 
 .info{
     @include fill;
+    @include flex;
     z-index: 1000;
-    display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0,0,0,0.5);
-    div{
-        background-color: black;
-        color:white;
-        padding:5px;
-        text-align: center;
-    }
+    background-color: rgba(0,0,0,0.7);
+
 }
 
-#playerMoves{
-    display:flex;
+.info-menu{
+  padding:1em;
+  background: linear-gradient(to bottom, black, rgba(0,0,0,0.6));
+  color:white;
+  width:90%;
+}
+
+.playerMoves{
+    @include flex;
+    -webkit-justify-content: space-around;
     justify-content: space-around;
+
     align-items:center;
     position: relative;
     padding-bottom:32px;
@@ -196,11 +230,11 @@ a:active, a:visited {
 }
 
 .lose {
-    outline: 2px solid red;
+    box-shadow: 0px 0px 0px 3px red
 }
 
 .win{
-    outline: 2px solid lightgreen;
+    box-shadow: 0px 0px 0px 3px lightgreen
 }
 
 
@@ -251,7 +285,7 @@ a:active, a:visited {
     width:34%;
 
   }
-  #playerMoves{
+  .playerMoves{
     .card{
       width:22%;
       font-size:0.6em
@@ -261,7 +295,7 @@ a:active, a:visited {
 
 @media screen and (max-width:760px) and (orientation:landscape){
   #enforce-orientation{
-    display: flex;
+    @include flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -270,14 +304,45 @@ a:active, a:visited {
       width:100px;
     }
   }
+
+  #app{
+    display:none
+  }
 }
 
 #preload{
   @include fill;
+  @include flex;
   background-color: black;
   color:white;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+
+
+#game-actions{
+  position:absolute;
+  top:0;left:0;
+  i{
+    margin-left:5px
+  }
+}
+
+button{
+  background: none;
+  color: white;
+  padding:3px 10px;
+  transition: all 200ms linear;
+  cursor:pointer
+}
+
+button:hover{
+    transform: scale(0.95);
+}
+button:active{
+  outline:none;
+  border:none;
+  transform: translateY(-5px);
 }
