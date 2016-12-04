@@ -2,7 +2,23 @@ import React, { Component } from 'react'
 import {Link,IndexLink} from 'react-router'
 import {TransitionMotion, spring, presets} from 'react-motion'
 
-class App extends Component{
+import {connect} from 'react-redux'
+
+import Preloader from '../components/Preloader'
+
+export default class App extends Component{
+
+    constructor(){
+      super();
+      this.bgm = new Audio('/assets/sounds/bgm.mp3');
+      this.bgm.loop = true;
+      this.bgm.addEventListener("loadeddata",function(){
+        this.play();
+      })
+      this.uiMove = new Audio('/assets/sounds/uimove.wav');
+
+
+    }
 
     willLeave(){
         return {
@@ -27,6 +43,8 @@ class App extends Component{
     }
 
     render(){
+
+
         return (
             <TransitionMotion
                 willEnter = {this.willEnter}
@@ -34,7 +52,7 @@ class App extends Component{
                 styles={this.getStyles()}>
                 {s=><span>
                         {
-                            s.map(({data, key, style})=><div className='container' key={key} style={style}>{React.cloneElement(data)}</div>)
+                            s.map(({data, key, style})=><div className='container' key={key} style={style}>{React.cloneElement(data, {uiMove: this.uiMove})}</div>)
                         }
                     </span>
                 }
@@ -43,7 +61,3 @@ class App extends Component{
         )
     }
 }
-
-
-
-export default App

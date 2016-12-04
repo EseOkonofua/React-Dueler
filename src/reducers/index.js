@@ -29,12 +29,15 @@ function game(state = null,action){
     return (types[action.type]) ? types[action.type]() : state;
 }
 
+
 function app(state={levels: Battles.length},action){
   var types = {
 
   }
   return (types[action.type]) ? types[action.type]() : state;
 }
+
+
 
 const allReducers = combineReducers({
     Game:game,

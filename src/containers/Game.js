@@ -6,12 +6,22 @@ import { changeGameState , selectMove , addRound, updateHealth , updateNextMove}
 
 import GAME_STATES from '../js/GameStates'
 
-import MoveCards from '../components/MoveCards'
+import {Attack, Heavy, Counter} from '../components/MoveCards'
 import EnemyChoice from '../components/EnemyChoice'
+
+
+// TODO:
+// Add a restart battle action - reset states to defaults
+// Asset preloader
+// Switch card component to take image nodes
+// Add a menu/settings button within Battle
+// How to play page
+// Animate info to slide up
+// Write more enemies
 
 var Info = (props)=>{
     return (
-        //TODO: Animate info to slide up
+
         <div className="info">
             <div>
                 <p>Your duel is about to start</p>
@@ -34,7 +44,7 @@ var HandleWinLoss = (props)=>{
   return (
     <div className="info">
       <div>
-        <h1>Handle win loss!</h1>
+        <h1>{(props.result === GAME_STATES.WIN)? 'You win!' : 'You lose!'}</h1>
         {(props.result === GAME_STATES.WIN)? <p>You are victorious!</p> : <p>You lose!</p>}
         {(props.result === GAME_STATES.WIN)? getLinks() : <Link to='/'>Go back to home menu</Link>}
       </div>
@@ -102,15 +112,20 @@ class Game extends Component{
         this.props.updateHealth({playerHealth,enemyHealth});
         this.props.changeGameState(GAME_STATES.RESULT);
 
-        if(enemyHealth === 0){
+        if(playerHealth === 0 ){
+          this.props.changeGameState(GAME_STATES.LOSE);
+        }
+        else if(enemyHealth === 0){
           this.props.changeGameState(GAME_STATES.WIN)
         }
     }
 
     handleSelectMove(move){
+
         if(this.props.Game.state === GAME_STATES.PLAYER_TURN){
             if(this.props.Game.selectedMove != move ){
                 this.props.selectMove(move);
+                this.props.uiMove.play();
             }
             else {
                 this.calcMove(move);
@@ -132,21 +147,18 @@ class Game extends Component{
             <div id="game">
                 <EnemyChoice Game = {this.props.Game} />
                 <div id="playerMoves">
-                    {React.cloneElement(MoveCards[0], {
-                        onClick:this.handleSelectMove.bind(this, 0),
-                        selected: (this.props.Game.selectedMove === 0),
-                        ...cardStates
-                    })}
-                    {React.cloneElement(MoveCards[1],{
-                        onClick:this.handleSelectMove.bind(this, 1),
-                        selected: (this.props.Game.selectedMove === 1),
-                        ...cardStates
-                    })}
-                    {React.cloneElement(MoveCards[2],{
-                        onClick:this.handleSelectMove.bind(this, 2),
-                        selected: (this.props.Game.selectedMove === 2),
-                        ...cardStates
-                    })}
+                  <Attack
+                      onClick={this.handleSelectMove.bind(this, 0)}
+                      selected={(this.props.Game.selectedMove === 0)}
+                      {...cardStates}/>
+                    <Heavy
+                        onClick={this.handleSelectMove.bind(this, 1)}
+                        selected={(this.props.Game.selectedMove === 1)}
+                        {...cardStates}/>
+                    <Counter
+                        onClick={this.handleSelectMove.bind(this, 2)}
+                        selected={(this.props.Game.selectedMove === 2)}
+                        {...cardStates}/>
                     <h3 id="playerStats">Player - {this.props.Game.playerHealth}HP</h3>
                     { (this.props.Game.state === GAME_STATES.RESULT) ? <button onClick = { this.enemyTurn } id="nextRound">Next round</button> : null }
                 </div>

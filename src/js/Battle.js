@@ -1,7 +1,7 @@
 export default class Battle {
     constructor(options){
         //Player stuff
-        this.playerHealth = 5;
+        this.playerHealth = 3;
 
         //enemy stuff
         this.enemyName = options.name;

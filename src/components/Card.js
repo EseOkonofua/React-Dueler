@@ -25,10 +25,7 @@ export default class Card extends Component {
 Card.propTypes = {
     img:React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
-    description: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.node
-    ]),
+    description: React.PropTypes.node.isRequired,
     active: React.PropTypes.bool,
     onClick: React.PropTypes.func,
     selected: React.PropTypes.bool,
