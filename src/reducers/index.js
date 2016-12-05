@@ -30,9 +30,26 @@ function game(state = null,action){
 }
 
 
-function app(state={levels: Battles.length},action){
-  var types = {
 
+function unlockedLevels(){
+  let unlocked = Battles.length - 1;
+  if(typeof(Storage) !== 'undefined'){
+    if(localStorage.unlocked){
+      return Number(localStorage.unlocked);
+    }
+    else{
+      localStorage.unlocked = 0;
+      return 0;
+    }
+  }
+  else return unlocked;
+}
+
+function app(state={levels: Battles.length, unlocked: unlockedLevels()},action){
+  var types = {
+    "UNLOCK_LEVEL":function(){
+      return Object.assign({},state,{unlocked:Number(action.level)})
+    }
   }
   return (types[action.type]) ? types[action.type]() : state;
 }

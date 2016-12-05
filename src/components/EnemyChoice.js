@@ -29,7 +29,6 @@ export default class EnemyChoice extends Component{
     render(){
         return (
             <div id='enemyMove'>
-                <div id="game-actions"><Link to='/'><i  className="fa fa-home" aria-hidden="true"></i></Link> <i style={{cursor:'pointer'}} onClick={this.props.loadGame} className="fa fa-refresh" aria-hidden="true"></i> </div>
                 <h3 id="enemyStats">{this.props.Game.enemyName} - {this.props.Game.enemyHealth}HP</h3>
                 {this.showCard()}
             </div>

@@ -20,12 +20,6 @@ require('./styles.scss');
 
 const store = createStore(allReducers, applyMiddleware(thunk));
 
-
-function handleEnterGame(nextState, replace){
-    store.dispatch( loadGame(nextState.params.level) );
-}
-
-
 var images = ['/assets/images/Sly.png',
               '/assets/images/Atum.png',
               '/assets/images/Harvest.png',
@@ -33,8 +27,35 @@ var images = ['/assets/images/Sly.png',
               '/assets/images/spiked-mace.png',
               '/assets/images/shield-reflect.png'];
 
+function handleEnterGame(nextState, replace){
+    //Handle have you unlocked enemy??
+    let state = store.getState();
+    if( state.App.unlocked >= nextState.params.level )
+      store.dispatch( loadGame(nextState.params.level) );
+    else
+      replace(`/play/${nextState.params.level}/notunlocked`);
+}
+
+function handleEnterNotUnlocked(nextState, replace){
+  //If you have unlocked an enemy just redirect to that enemy
+
+  let state = store.getState();
+  let level = nextState.params.level;
+  if(state.App.unlocked >= nextState.params.level )
+    replace(`/play/${nextState.params.level}`);
+}
+
 function handleAssetsLoaded(assets){
-  console.log("assets loaded")
+  console.log("assets loaded");
+}
+
+const NotUnlocked = (props)=>{
+  return (
+    <div id="notunlocked">
+        <h1>{`You have not unlocked level ${props.params.level}`}</h1>
+        <IndexLink to='/' >Back to Menu</IndexLink>
+    </div>
+  )
 }
 
 render(
@@ -46,6 +67,7 @@ render(
               <IndexRoute component={Menu}/>
               <Route path='/tutorial' component={Tutorial} />
               <Route path='/play/:level' onEnter={ handleEnterGame }  component={Game} />
+              <Route path='/play/:level/notunlocked' onEnter={handleEnterNotUnlocked} component={NotUnlocked} />
               <Redirect from='/play' to='/play/0' />
             </Route>
         </Router>

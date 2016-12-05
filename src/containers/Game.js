@@ -2,7 +2,7 @@ import React , {Component} from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link , browserHistory} from 'react-router'
-import { changeGameState , selectMove , addRound, updateHealth , updateNextMove, loadGame} from '../actions'
+import { changeGameState , selectMove , addRound, updateHealth , updateNextMove, loadGame, unlockLevel} from '../actions'
 
 import GAME_STATES from '../js/GameStates'
 
@@ -11,9 +11,6 @@ import EnemyChoice from '../components/EnemyChoice'
 
 
 // TODO:
-
-// Enemies must be unlocked - Use data storage
-// How to play page
 // Write more enemies
 // Sound settings
 
@@ -135,7 +132,17 @@ class Game extends Component{
           this.props.changeGameState(GAME_STATES.LOSE);
         }
         else if(enemyHealth === 0){
-          this.props.changeGameState(GAME_STATES.VICTORY)
+          this.props.changeGameState(GAME_STATES.VICTORY);
+
+          //If you defeat current enemy..then upgrade your unlocked levels
+          if(typeof(Storage) !== 'undefined'){
+            if(this.props.params.level < (this.props.App.levels - 1) ){
+              localStorage.unlocked = Number(localStorage.unlocked) + 1;
+
+              //upgrade it on the state
+              this.props.unlockLevel(localStorage.unlocked);
+            }
+          }
         }
     }
 
@@ -169,7 +176,7 @@ class Game extends Component{
 
         return (
             <div id="game">
-              <EnemyChoice loadGame={this.handleLoadGame} Game = {this.props.Game} />
+              <EnemyChoice Game = {this.props.Game} />
               <div className="playerMoves">
                 <Attack
                     onClick={this.handleSelectMove.bind(this, 0)}
@@ -183,11 +190,10 @@ class Game extends Component{
                     onClick={this.handleSelectMove.bind(this, 2)}
                     selected={(this.props.Game.selectedMove === 2)}
                     {...cardStates}/>
-
               </div>
-
               <h3 id="playerStats">Player - {this.props.Game.playerHealth}HP</h3>
-                              { (this.props.Game.state === GAME_STATES.RESULT) ? <button style={{backgroundColor:'black'}} onClick = { this.enemyTurn } id="nextRound">Next round</button> : null }
+              <div id="game-actions"><Link to='/'><i  className="fa fa-home" aria-hidden="true"></i></Link> <i style={{cursor:'pointer'}} onClick={this.handleLoadGame} className="fa fa-refresh" aria-hidden="true"></i> </div>
+              {(this.props.Game.state === GAME_STATES.RESULT) ? <button style={{backgroundColor:'black'}} onClick = { this.enemyTurn } id="nextRound">Next round</button> : null }
               {(this.props.Game.state === GAME_STATES.ENEMY_INFO) ? <Info onClick={ this.enemyTurn }/> : null}
               {(this.props.Game.state === GAME_STATES.VICTORY || this.props.Game.state === GAME_STATES.LOSE)? <HandleWinLoss currentLevel = {this.props.params.level} levels={this.props.App.levels} result={this.props.Game.state} /> : null}
             </div>
@@ -200,7 +206,7 @@ function mapStateToProps(state){
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({changeGameState, selectMove, addRound, updateHealth, updateNextMove, loadGame}, dispatch);
+    return bindActionCreators({changeGameState, selectMove, addRound, updateHealth, updateNextMove, loadGame, unlockLevel }, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Game)

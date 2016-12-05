@@ -346,3 +346,11 @@ button:active{
   border:none;
   transform: translateY(-5px);
 }
+
+#notunlocked{
+  @include fill;
+  @include flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -43,3 +43,10 @@ export function updateNextMove(move){
     move
   }
 }
+
+export function unlockLevel(level){
+  return {
+    type: "UNLOCK_LEVEL",
+    level
+  }
+}
