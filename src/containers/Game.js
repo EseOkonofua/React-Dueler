@@ -35,6 +35,8 @@ var Info = (props)=>{
         <div className="info">
             <div className = 'info-menu'>
                 <p>Your duel is about to start</p>
+                <h2>{props.name}</h2>
+                <p>{props.desc}</p>
                 <button onClick={props.onClick}>Play</button>
                 <Settings/>
             </div>
@@ -78,11 +80,15 @@ class Game extends Component{
         this.answerTimeout = null;
     }
 
+    componentWillUnmount(){
+      if(this.answerTimeout) clearTimeout(this.answerTimeout);
+    }
+
     enemyTurn(){
         this.props.changeGameState(GAME_STATES.ENEMY_TURN);
         this.props.selectMove(null);
         this.props.updateNextMove( this.props.Game.getMove(this.getEnv()) );
-        this.answerTimeout = setTimeout( this.props.changeGameState.bind(null,GAME_STATES.PLAYER_TURN) , 3500);
+        this.answerTimeout = setTimeout( this.props.changeGameState.bind(null,GAME_STATES.PLAYER_TURN) , 2500);
     }
 
     getEnv(){
@@ -194,7 +200,7 @@ class Game extends Component{
               <h3 id="playerStats">Player - {this.props.Game.playerHealth}HP</h3>
               <div id="game-actions"><Link to='/'><i  className="fa fa-home" aria-hidden="true"></i></Link> <i style={{cursor:'pointer'}} onClick={this.handleLoadGame} className="fa fa-refresh" aria-hidden="true"></i> </div>
               {(this.props.Game.state === GAME_STATES.RESULT) ? <button style={{backgroundColor:'black'}} onClick = { this.enemyTurn } id="nextRound">Next round</button> : null }
-              {(this.props.Game.state === GAME_STATES.ENEMY_INFO) ? <Info onClick={ this.enemyTurn }/> : null}
+              {(this.props.Game.state === GAME_STATES.ENEMY_INFO) ? <Info name={this.props.Game.enemyName} desc={this.props.Game.enemyDescription} onClick={ this.enemyTurn }/> : null}
               {(this.props.Game.state === GAME_STATES.VICTORY || this.props.Game.state === GAME_STATES.LOSE)? <HandleWinLoss currentLevel = {this.props.params.level} levels={this.props.App.levels} result={this.props.Game.state} /> : null}
             </div>
         )
