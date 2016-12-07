@@ -78,8 +78,12 @@ const Battles = [
           if(rounds === 0) return Math.round(Math.random());
           else{
             let lastRound = env.rounds[rounds-1];
-            if(pHealthPercent <= 0.5){
+
+            if(eHealthPercent <= 0.5 && pHealthPercent > 0.5){
               return counterMostUsedMoveAggressive(moves);
+            }
+            if(pHealthPercent <= 0.5){
+              return 1;
             }
             return counter(lastRound.playerMove);
           }
