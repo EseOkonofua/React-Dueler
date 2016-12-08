@@ -10,6 +10,7 @@ import { Attack, Heavy, Counter , SKILL_IMAGES} from './MoveCards'
 
 export default class EnemyChoice extends Component{
 
+
     showCard(){
         var rounds = this.props.Game.rounds.length;
         var result = (rounds > 0 )? this.props.Game.rounds[rounds - 1].result : null;

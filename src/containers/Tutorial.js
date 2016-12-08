@@ -12,10 +12,10 @@ const Tutorial = ()=> (
 
         </div>
         <section>
-          <p>React - Duel is a Rock, Paper Scissors - esque dueling game. The purpose of the game is to outsmart each opponent and drop their health points to 0 before your's hits 0. </p>
+          <p>Dueler is a Rock, Paper Scissors - esque dueling game. The purpose of the game is to outsmart each opponent and drop their health points to 0 before your's hits 0. </p>
         </section>
         <section>
-          <p style={{textAlign:'center'}}>The moves in React - Duel include:</p>
+          <p style={{textAlign:'center'}}>The moves in Dueler include:</p>
           <div className='playerMoves'>
             <Attack />
             <Heavy />
@@ -40,7 +40,7 @@ const Tutorial = ()=> (
           <hr/>
         </section>
         <section  style={{textAlign:'center'}}>
-          <p>All the enemies in React-Duel have unique behaviours. Use their descriptions to gain a upper hand.</p>
+          <p>All the enemies in Dueler have unique behaviours. Use their descriptions to gain a upper hand.</p>
           <h3><Link to='/play'>Start Game</Link></h3>
         </section>
     </div>
