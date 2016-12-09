@@ -27,14 +27,42 @@ function counter(move){
   else if (move=== 2) return 1;
 }
 
-function counterMostUsedMoveAggressive(moves){
-  //Attack->Heavy->Counter
-  let choice = 0;
+function getMostUsedMove(moves){
+  var choices = [];
+  Object.keys(moves).forEach(move=>{
+    if(choices.length <= 0) choices.push(move);
+    else{
+      console.log("Moves move: "+moves[move])
+      console.log("choices[0]: " +choices[0])
+      if(moves[move] > Number( moves[choices[0]] ) ) choices = [Number(move)];
+      else if(moves[move] == Number( moves[choices[0]] )) choices.push(Number(move));
+    }
+  })
 
-  if(moves.player[choice] <= moves.player[1]) choice = 1;
-  if(moves.player[choice] <= moves.player[2]) choice = 2;
-  return counter(choice);
+  var num = choices.length;
+  if(num == 1) return choices[0]
+  else return choices[Math.floor(Math.random() * num)];
+
 }
+
+function getLeastUsedMove(moves){
+  var choices = [];
+  Object.keys(moves).forEach(move=>{
+    if(choices.length <= 0) choices.push(move);
+    else{
+      console.log("Moves move: "+moves[move])
+      console.log("choices[0]: " +choices[0])
+      if(moves[move] < Number( moves[choices[0]] ) ) choices = [Number(move)];
+      else if(moves[move] == Number( moves[choices[0]] )) choices.push(Number(move));
+    }
+  })
+
+  var num = choices.length;
+  if(num == 1) return choices[0]
+  else return choices[Math.floor(Math.random() * num)];
+
+}
+
 
 const Battles = [
     {
@@ -80,7 +108,7 @@ const Battles = [
             let lastRound = env.rounds[rounds-1];
 
             if(eHealthPercent <= 0.5 && pHealthPercent > 0.5){
-              return counterMostUsedMoveAggressive(moves);
+              return counter(getMostUsedMove(moves.player));
             }
             if(pHealthPercent <= 0.5){
               return 1;
@@ -92,13 +120,59 @@ const Battles = [
     {
         name:"Atum",
         health:5,
-        description: "",
+        description: '" I\'ll tell you one thing... I\'m going to attack first... " - Atum',
         getMove:function(env){
             let rounds = env.rounds.length;
-            //Mushrooms alternate between attacks and defends
-            if((rounds % 2) == 0) return 0;
-            else return 2;
+            let eHealthPercent = env.enemyHealth/env.enemyMaxHealth;
+            let pHealthPercent = env.playerHealth/3;
+            let lastRound = env.rounds[rounds - 1];
+            let moves = moveCount(env.rounds);
+
+            if(rounds == 0) return 0;
+            else {
+              if(eHealthPercent <= 0.5){
+                return getLeastUsedMove(moves.enemy);
+              }
+              if(lastRound.result === "LOSE"){
+                return lastRound.enemyMove;
+              }
+              else{
+                return counter(lastRound.enemyMove);
+              }
+            }
         }
+    },
+    {
+      name:"Death Thirteen",
+      health:5,
+      description: "Steals your dreams baby!",
+      getMove:function(env){
+        return 0;
+      }
+    },
+    {
+      name:"Cream",
+      health:5,
+      description: "Vanilla Ice!",
+      getMove:function(env){
+        return 0;
+      }
+    },
+    {
+      name:"Red Hot Chili Pepper",
+      health:5,
+      description: "It's electric!",
+      getMove:function(env){
+        return 0;
+      }
+    },
+    {
+      name:"Killer Queen",
+      health:5,
+      description: "Boom!",
+      getMove:function(env){
+        return 0;
+      }
     }
 ];
 

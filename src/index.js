@@ -25,7 +25,11 @@ var images = ['/assets/images/Sly.png',
               '/assets/images/Harvest.png',
               '/assets/images/saber-slash.png',
               '/assets/images/spiked-mace.png',
-              '/assets/images/shield-reflect.png'];
+              '/assets/images/shield-reflect.png',
+            '/assets/images/Cream.png',
+          '/assets/images/Death Thirteen.png',
+        '/assets/images/Killer Queen.png',
+      '/assets/images/Red Hot Chili Pepper.png'];
 
 function handleEnterGame(nextState, replace){
     //Handle have you unlocked enemy??
