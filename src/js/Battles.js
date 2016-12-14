@@ -30,10 +30,8 @@ function counter(move){
 function getMostUsedMove(moves){
   var choices = [];
   Object.keys(moves).forEach(move=>{
-    if(choices.length <= 0) choices.push(move);
+    if(choices.length <= 0) choices.push(Number(move));
     else{
-      console.log("Moves move: "+moves[move])
-      console.log("choices[0]: " +choices[0])
       if(moves[move] > Number( moves[choices[0]] ) ) choices = [Number(move)];
       else if(moves[move] == Number( moves[choices[0]] )) choices.push(Number(move));
     }
@@ -48,18 +46,21 @@ function getMostUsedMove(moves){
 function getLeastUsedMove(moves){
   var choices = [];
   Object.keys(moves).forEach(move=>{
-    if(choices.length <= 0) choices.push(move);
+    if(choices.length <= 0) choices.push(Number(move));
     else{
-      console.log("Moves move: "+moves[move])
-      console.log("choices[0]: " +choices[0])
       if(moves[move] < Number( moves[choices[0]] ) ) choices = [Number(move)];
       else if(moves[move] == Number( moves[choices[0]] )) choices.push(Number(move));
     }
   })
 
   var num = choices.length;
-  if(num == 1) return choices[0]
-  else return choices[Math.floor(Math.random() * num)];
+
+  if(num == 1){ console.log(choices[0]); return choices[0] }
+  else{
+    var randChoice =choices[Math.floor(Math.random() * num)];
+    console.log(randChoice);
+    return randChoice;
+  }
 
 }
 
@@ -153,7 +154,8 @@ const Battles = [
     {
       name:"Cream",
       health:5,
-      description: "Vanilla Ice!",
+      playerHealth:2,
+      description: 'Scream n Shout',
       getMove:function(env){
         return 0;
       }
@@ -161,9 +163,14 @@ const Battles = [
     {
       name:"Red Hot Chili Pepper",
       health:5,
-      description: "It's electric!",
+      description: '"Balance in all things!" - RHCP',
       getMove:function(env){
-        return 0;
+        let rounds = env.rounds.length;
+        let eHealthPercent = env.enemyHealth/env.enemyMaxHealth;
+        let pHealthPercent = env.playerHealth/3;
+        let moves = moveCount(env.rounds);
+        if(rounds < 2) return Math.floor(Math.random()*3);
+        else return getLeastUsedMove(moves.enemy)
       }
     },
     {

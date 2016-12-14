@@ -124,12 +124,15 @@ class Game extends Component{
         }
         moves[move]();
 
+
+
         //Sounds depending of if you've taken damage;
         if(playerHealth < this.props.Game.playerHealth) this.props.enemyHitSound.play();
         else this.props.hitSound.play();
         //show results
         var round = { enemyMove: this.props.Game.nextMove , playerMove: move, result };
 
+        console.log(round);
         this.props.addRound(round);
         this.props.updateHealth({playerHealth,enemyHealth});
         this.props.changeGameState(GAME_STATES.RESULT);
