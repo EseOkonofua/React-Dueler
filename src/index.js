@@ -15,6 +15,7 @@ import Tutorial from './containers/Tutorial'
 import Game from './containers/Game'
 
 import Preloader from './components/Preloader'
+import Battles from './js/Battles'
 
 require('./styles.scss');
 
@@ -62,6 +63,38 @@ const NotUnlocked = (props)=>{
   )
 }
 
+const Enemies = (props)=>{
+  let state = store.getState();
+
+  var MapEnemies = ()=>{
+    return Battles.map((battle,index)=>{
+      return (
+        <div>
+        {
+          (state.App.unlocked >= index) ?
+          <div className='enemy-item'>
+                <h2>{`${battle.name}|${battle.health}HP`}</h2>
+                <p>{battle.description}</p>
+                <Link to={`/play/${index}`}>Battle</Link>
+          </div> :
+          <div>
+            <h1>?</h1>
+          </div>
+        }
+        </div>
+      )
+    })
+  }
+
+  return (
+    <div id="enemies">
+        <h2>Enemies page <Link to='/'>Home</Link></h2>
+        <MapEnemies/>
+
+    </div>
+  )
+}
+
 render(
 
     <Provider store={store}>
@@ -72,6 +105,7 @@ render(
               <Route path='/tutorial' component={Tutorial} />
               <Route path='/play/:level' onEnter={ handleEnterGame }  component={Game} />
               <Route path='/play/:level/notunlocked' onEnter={handleEnterNotUnlocked} component={NotUnlocked} />
+              <Route path='/enemies' component={Enemies} />
               <Redirect from='/play' to='/play/0' />
             </Route>
         </Router>

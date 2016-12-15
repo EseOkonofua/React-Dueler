@@ -13,4 +13,14 @@ function getMostUsedMove(moves){
   else return choices[Math.floor(Math.random() * num)];
 
 }
-console.log(getMostUsedMove({0:2,1:2,2:2}));
+
+function getEnemyOldestUsedMove(moves, history){
+  var historyLen = history.length;
+  for(int i = historyLen - 1; i >= 0; i--){
+    if(moves.length == 1) return moves[0];
+    var index = moves.indexOf(history[i].enemyMove);
+    if(index !== -1){
+      moves.splice(index,1);
+    }
+  }
+}

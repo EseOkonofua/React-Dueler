@@ -8,6 +8,7 @@ export default class Menu extends Component {
             <h1 style={{textAlign:'center'}}>DUELER</h1>
             <h2><Link to='/play'>Play</Link></h2>
             <h4><Link to='/tutorial'>How to play</Link></h4>
+            <h4><Link to='/enemies'>Enemies</Link></h4>
         </div>
     )
   }

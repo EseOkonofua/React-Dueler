@@ -39,8 +39,7 @@ function getMostUsedMove(moves){
 
   var num = choices.length;
   if(num == 1) return choices[0]
-  else return choices[Math.floor(Math.random() * num)];
-
+  else return choices;
 }
 
 function getLeastUsedMove(moves){
@@ -55,13 +54,20 @@ function getLeastUsedMove(moves){
 
   var num = choices.length;
 
-  if(num == 1){ console.log(choices[0]); return choices[0] }
-  else{
-    var randChoice =choices[Math.floor(Math.random() * num)];
-    console.log(randChoice);
-    return randChoice;
-  }
+  if(num == 1) return choices[0]
+  else return choices;
+}
 
+function getEnemyOldestUsedMove(moves, history){
+  var historyLen = history.length;
+  for(var i = historyLen - 1; i >= 0; i--){
+    if(moves.length == 1) return moves[0];
+    var index = moves.indexOf(history[i].enemyMove);
+    if(index !== -1){
+      moves.splice(index,1);
+    }
+  }
+  return Math.floor( Math.random() * moves.length );
 }
 
 
@@ -109,7 +115,12 @@ const Battles = [
             let lastRound = env.rounds[rounds-1];
 
             if(eHealthPercent <= 0.5 && pHealthPercent > 0.5){
-              return counter(getMostUsedMove(moves.player));
+              var mostUsedMove = getMostUsedMove(moves.player);
+              if( !Array.isArray(mostUsedMove) ) return counter(mostUsedMove);
+              else{
+                var len = mostUsedMove.length;
+                return counter(mostUsedMove[ Math.floor( Math.random() * len ) ]);
+              }
             }
             if(pHealthPercent <= 0.5){
               return 1;
@@ -132,7 +143,12 @@ const Battles = [
             if(rounds == 0) return 0;
             else {
               if(eHealthPercent <= 0.5){
-                return getLeastUsedMove(moves.enemy);
+                var lUsedMove = getLeastUsedMove(moves.enemy);
+                if( !Array.isArray(lUsedMove) ) return lUsedMove;
+                else{
+                  var len = lUsedMove.length;
+                  return lUsedMove[ Math.floor( Math.random() * len ) ];
+                }
               }
               if(lastRound.result === "LOSE"){
                 return lastRound.enemyMove;
@@ -146,18 +162,51 @@ const Battles = [
     {
       name:"Death Thirteen",
       health:5,
-      description: "Steals your dreams baby!",
+      description: "He knows only one thing. Death. He feeds of his enemies fear.",
       getMove:function(env){
+        let rounds = env.rounds.length;
+        let eHealthPercent = env.enemyHealth/env.enemyMaxHealth;
+        let pHealthPercent = env.playerHealth/3;
+        let moves = moveCount(env.rounds);
+
+        if(rounds === 0) return 1;
+        else{
+          if(moves.player[1] > moves.player[2]) return 0;
+          else if(moves.player[1] < moves.player[2]) return 1;
+          else {
+            if(moves.player[0]%2 === 0) return 0;
+            else return 1;
+          }
+        }
         return 0;
+
       }
     },
     {
       name:"Cream",
       health:5,
       playerHealth:2,
-      description: 'Scream n Shout',
+      description: 'My advice to you is...don\'t get hit.',
       getMove:function(env){
-        return 0;
+        let rounds = env.rounds.length;
+        let eHealthPercent = env.enemyHealth/env.enemyMaxHealth;
+        let pHealthPercent = env.playerHealth/3;
+        let moves = moveCount(env.rounds);
+
+        if(rounds === 0) return 1;
+        else{
+          if(rounds%2 === 0){
+            var mUsedMove = getMostUsedMove(moves.enemy);
+            console.log(mUsedMove);
+            if( !Array.isArray(mUsedMove) ) return mUsedMove;
+            else return getEnemyOldestUsedMove(mUsedMove, env.rounds);
+          }
+          else{
+            var lUsedMove = getLeastUsedMove(moves.enemy);
+            if( !Array.isArray(lUsedMove)  ) return lUsedMove;
+            else return getEnemyOldestUsedMove(lUsedMove, env.rounds);
+          }
+        }
       }
     },
     {
@@ -169,14 +218,19 @@ const Battles = [
         let eHealthPercent = env.enemyHealth/env.enemyMaxHealth;
         let pHealthPercent = env.playerHealth/3;
         let moves = moveCount(env.rounds);
+
         if(rounds < 2) return Math.floor(Math.random()*3);
-        else return getLeastUsedMove(moves.enemy)
+        else{
+          var lUsedMove = getLeastUsedMove(moves.enemy);
+          if( !Array.isArray( lUsedMove ) ) return lUsedMove;
+          else return getEnemyOldestUsedMove(lUsedMove, env.rounds)
+        }
       }
     },
     {
       name:"Killer Queen",
-      health:5,
-      description: "Boom!",
+      health:7,
+      description: "Bites Za dust!",
       getMove:function(env){
         return 0;
       }
