@@ -1,6 +1,6 @@
  Play the game at: https://reactdueler.herokuapp.com/ *might take a while to bootup*
-<h1 align="center">Dueler</h1>
 
+<h1 align="center">Dueler</h1>
 <p align="center">
   <img height="150" src="https://github.com/EseOkonofua/React-Dueler/blob/master/public/assets/images/Sly.png"> 
 </p>
