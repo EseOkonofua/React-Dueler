@@ -1,6 +1,6 @@
-
+<h1 align="center">Dueler<h1>
 <p align="center">
-  # Dueler
+
   Play the game at: https://reactdueler.herokuapp.com/ *might take a while to bootup*
   <img src="https://github.com/EseOkonofua/React-Dueler/blob/master/public/assets/images/Sly.png"> 
 </p>
