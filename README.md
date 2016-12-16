@@ -10,3 +10,5 @@ The player will face 7 unique battles, each enemy having different behavior base
 
 Technologies used are React, Redux, React-Motion, SCSS, Express.
 Uses HTML5 LocalStorage to keep track of Locked/Unlocked levels. 
+
+![alt tag](https://github.com/EseOkonofua/React-Dueler/blob/master/public/assets/images/Sly.png)
