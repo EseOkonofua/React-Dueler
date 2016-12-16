@@ -1,4 +1,4 @@
-<h1 align="center">Dueler<h1>
+<h1 align="center">Dueler</h1>
 <p align="center">
 
   Play the game at: https://reactdueler.herokuapp.com/ *might take a while to bootup*
