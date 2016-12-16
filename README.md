@@ -1,11 +1,10 @@
-# React-Redux-Template
+# Dueler
+Play the game at:
+https://reactdueler.herokuapp.com/ *might take a while to bootup*
 
-I find the templates for React & Redux are way too complicated, that's why I've come up with the simplest of templates for getting started on any front end projects.
+Dueler is a game I decided to make. I wanted to use React and Redux to create an app like experience.
+The game is a rock paper scissors type game with a Dueling/Warrior theme.
 
-The simplest of React-Redux template w/ React-router to help you get started with your frontend!.
+The player will face 7 unique battles, each enemy having different behavior based on what has transpired in battle. 
 
-This project features: 
-**Express**, **Webpack**, **React**, **Redux** and **React-Router**
-
-*Any suggestions would be greatly appreciated, but remember we are trying to keep it as simple as possible, so any newbie can get started*
-
+Technologies used are React, Redux, React-Motion, SCSS, Express.
