@@ -9,7 +9,7 @@ import allReducers from './reducers'
 
 import { loadGame  } from './actions'
 
-import App from './containers/App'
+import App from './containers/app'
 import Menu from './containers/Menu'
 import Tutorial from './containers/Tutorial'
 import Game from './containers/Game'

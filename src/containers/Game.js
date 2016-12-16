@@ -59,7 +59,7 @@ var HandleWinLoss = (props)=>{
       <div className = "info-menu">
         <h1>{(props.result === GAME_STATES.VICTORY)? 'You win!' : 'You lose!'}</h1>
         {(props.result === GAME_STATES.VICTORY)? <p>You are victorious!</p> : <p>You lose!</p>}
-        {(props.result === GAME_STATES.VICTORY)? getLinks() : <Link to='/'>Go back to home menu</Link>}
+        {(props.result === GAME_STATES.VICTORY)? getLinks() : <div> <Link to='/'>Go back to home menu</Link> <a href="#" onClick={props.restart}>Retry</a></div>}
       </div>
     </div>
   )
@@ -204,7 +204,7 @@ class Game extends Component{
               <div id="game-actions"><Link to='/'><i  className="fa fa-home" aria-hidden="true"></i></Link> <i style={{cursor:'pointer'}} onClick={this.handleLoadGame} className="fa fa-refresh" aria-hidden="true"></i> </div>
               {(this.props.Game.state === GAME_STATES.RESULT) ? <button style={{backgroundColor:'black'}} onClick = { this.enemyTurn } id="nextRound">Next round</button> : null }
               {(this.props.Game.state === GAME_STATES.ENEMY_INFO) ? <Info name={this.props.Game.enemyName} desc={this.props.Game.enemyDescription} onClick={ this.enemyTurn }/> : null}
-              {(this.props.Game.state === GAME_STATES.VICTORY || this.props.Game.state === GAME_STATES.LOSE)? <HandleWinLoss currentLevel = {this.props.params.level} levels={this.props.App.levels} result={this.props.Game.state} /> : null}
+              {(this.props.Game.state === GAME_STATES.VICTORY || this.props.Game.state === GAME_STATES.LOSE)? <HandleWinLoss restart={this.handleLoadGame} currentLevel = {this.props.params.level} levels={this.props.App.levels} result={this.props.Game.state} /> : null}
             </div>
         )
     }
