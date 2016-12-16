@@ -2,7 +2,7 @@
 <h1 align="center">Dueler</h1>
 
 <p align="center">
-  <img height="50" src="https://github.com/EseOkonofua/React-Dueler/blob/master/public/assets/images/Sly.png"> 
+  <img height="150" src="https://github.com/EseOkonofua/React-Dueler/blob/master/public/assets/images/Sly.png"> 
 </p>
 
 Dueler is a game I decided to make. I wanted to use React and Redux to create an app like experience.
