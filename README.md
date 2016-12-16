@@ -1,7 +1,7 @@
+ Play the game at: https://reactdueler.herokuapp.com/ *might take a while to bootup*
 <h1 align="center">Dueler</h1>
-<p align="center">
 
-  Play the game at: https://reactdueler.herokuapp.com/ *might take a while to bootup*
+<p align="center">
   <img src="https://github.com/EseOkonofua/React-Dueler/blob/master/public/assets/images/Sly.png"> 
 </p>
 
