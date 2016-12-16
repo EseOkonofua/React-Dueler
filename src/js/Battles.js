@@ -211,7 +211,7 @@ const Battles = [
     },
     {
       name:"Red Hot Chili Pepper",
-      health:5,
+      health:6,
       description: '"Balance in all things!" - RHCP',
       getMove:function(env){
         let rounds = env.rounds.length;
