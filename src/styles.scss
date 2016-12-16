@@ -9,7 +9,7 @@ body,html {
 a{
   color:white;
   text-decoration: none;
-  margin:5px;
+  margin:5px 0px;
   transition: transform 200ms linear;
   display: inline-block;
   position:relative;
@@ -325,8 +325,13 @@ a:hover::after{
 #game-actions{
   position:absolute;
   top:0;left:0;
+  @include flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  a{margin:0}
   i{
-    margin-left:5px
+    margin:5px;
   }
 }
 

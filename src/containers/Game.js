@@ -127,8 +127,8 @@ class Game extends Component{
 
 
         //Sounds depending of if you've taken damage;
-        if(playerHealth < this.props.Game.playerHealth) this.props.enemyHitSound.play();
-        else this.props.hitSound.play();
+        if(playerHealth < this.props.Game.playerHealth && this.props.App.soundSettings.sounds ) this.props.enemyHitSound.play();
+        else if(this.props.App.soundSettings.sounds) this.props.hitSound.play();
         //show results
         var round = { enemyMove: this.props.Game.nextMove , playerMove: move, result };
 
@@ -159,7 +159,8 @@ class Game extends Component{
         if(this.props.Game.state === GAME_STATES.PLAYER_TURN){
             if(this.props.Game.selectedMove != move ){
                 this.props.selectMove(move);
-                this.props.uiMoveSound.play();
+                if(this.props.App.soundSettings.sounds)
+                  this.props.uiMoveSound.play();
             }
             else {
                 this.calcMove(move);
@@ -201,7 +202,12 @@ class Game extends Component{
                     {...cardStates}/>
               </div>
               <h3 id="playerStats">Player - {this.props.Game.playerHealth}HP</h3>
-              <div id="game-actions"><Link to='/'><i  className="fa fa-home" aria-hidden="true"></i></Link> <i style={{cursor:'pointer'}} onClick={this.handleLoadGame} className="fa fa-refresh" aria-hidden="true"></i> </div>
+              <div id="game-actions">
+                <Link to='/'><i  className="fa fa-home" aria-hidden="true"></i></Link>
+                <i style={{cursor:'pointer'}} onClick={this.handleLoadGame} className="fa fa-refresh" aria-hidden="true"></i>
+                <i onClick={this.props.bgmChange.bind(null, !this.props.App.soundSettings.bgm)} className='fa fa-music' style={{cursor:'pointer',color:(this.props.App.soundSettings.bgm)?'#8e44ad':'black'}}></i>
+                <i onClick ={this.props.soundChange.bind(null, !this.props.App.soundSettings.sounds)} className='fa fa-volume-up' style={{cursor:'pointer',color:(this.props.App.soundSettings.sounds)?'#8e44ad':'black'}}></i>
+              </div>
               {(this.props.Game.state === GAME_STATES.RESULT) ? <button style={{backgroundColor:'black'}} onClick = { this.enemyTurn } id="nextRound">Next round</button> : null }
               {(this.props.Game.state === GAME_STATES.ENEMY_INFO) ? <Info name={this.props.Game.enemyName} desc={this.props.Game.enemyDescription} onClick={ this.enemyTurn }/> : null}
               {(this.props.Game.state === GAME_STATES.VICTORY || this.props.Game.state === GAME_STATES.LOSE)? <HandleWinLoss restart={this.handleLoadGame} currentLevel = {this.props.params.level} levels={this.props.App.levels} result={this.props.Game.state} /> : null}

@@ -50,3 +50,17 @@ export function unlockLevel(level){
     level
   }
 }
+
+export function setBgm(status){
+  return {
+    type:"SET_BGM",
+    status
+  }
+}
+
+export function setSound(status){
+  return {
+    type: "SET_SOUND",
+    status
+  }
+}

@@ -2,23 +2,44 @@ import React, { Component } from 'react'
 import {Link,IndexLink} from 'react-router'
 import {TransitionMotion, spring, presets} from 'react-motion'
 
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 
+import { setBgm , setSound} from '../actions'
 import Preloader from '../components/Preloader'
 
-export default class App extends Component{
+class App extends Component{
 
     constructor(){
       super();
       this.bgm = new Audio('/assets/sounds/bgm.mp3');
       this.bgm.loop = true;
-      this.bgm.addEventListener("loadeddata",function(){
-        this.play();
-      })
+
       this.uiMove = new Audio('/assets/sounds/uimove.wav');
       this.hit = new Audio('/assets/sounds/hit.wav');
       this.enemyHit = new Audio('/assets/sounds/enemyhit.wav');
 
+      this.bgmChange = this.bgmChange.bind(this);
+      this.soundChange = this.soundChange.bind(this);
+    }
+
+    soundChange(status){
+      this.props.setSound(status);
+    }
+
+    bgmChange(status){
+      this.props.setBgm(status);
+      if(status){
+        this.bgm.play();
+      }
+      else this.bgm.pause();
+    }
+
+    componentDidMount(){
+      if(this.props.soundSettings.bgm){
+        this.bgm.play();
+        if(this.bgm.paused) this.bgmChange(false);
+      }
 
     }
 
@@ -57,7 +78,9 @@ export default class App extends Component{
                             s.map(({data, key, style})=><div className='container' key={key} style={style}>{React.cloneElement(data, {
                               uiMoveSound: this.uiMove,
                               hitSound: this.hit,
-                              enemyHitSound: this.enemyHit
+                              enemyHitSound: this.enemyHit,
+                              bgmChange: this.bgmChange,
+                              soundChange: this.soundChange
                             })}</div>)
                         }
                     </span>
@@ -67,3 +90,15 @@ export default class App extends Component{
         )
     }
 }
+
+function mapStateToProps(state){
+  return {
+    soundSettings:state.App.soundSettings
+  }
+}
+
+function matchDispatchToProps(dispatch){
+  return bindActionCreators({ setBgm, setSound }, dispatch)
+}
+
+export default connect(mapStateToProps,matchDispatchToProps)(App)
