@@ -253,7 +253,7 @@ const Battles = [
               var lUsedMove =  getLeastUsedMove(moves.enemy);
               if( !Array.isArray(lUsedMove) ) return lUsedMove;
               else{
-                return getEnemyOldestUsedMove(lUsedMove);
+                return getEnemyOldestUsedMove(lUsedMove, env.rounds);
               }
             }
 
