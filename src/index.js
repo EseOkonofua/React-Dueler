@@ -35,10 +35,12 @@ var images = ['/assets/images/Sly.png',
 function handleEnterGame(nextState, replace){
     //Handle have you unlocked enemy??
     let state = store.getState();
-    if( state.App.unlocked >= nextState.params.level )
-      store.dispatch( loadGame(nextState.params.level) );
+    let level = nextState.params.level;
+    if(level > Battles.length - 1) replace('*');
+    if( state.App.unlocked >= level )
+      store.dispatch( loadGame(level) );
     else
-      replace(`/play/${nextState.params.level}/notunlocked`);
+      replace(`/play/${level}/notunlocked`);
 }
 
 function handleEnterNotUnlocked(nextState, replace){
@@ -46,8 +48,9 @@ function handleEnterNotUnlocked(nextState, replace){
 
   let state = store.getState();
   let level = nextState.params.level;
-  if(state.App.unlocked >= nextState.params.level )
-    replace(`/play/${nextState.params.level}`);
+  if(level > Battles.length - 1) replace('*');
+  if(state.App.unlocked >= level )
+    replace(`/play/${level}`);
 }
 
 function handleAssetsLoaded(assets){
@@ -69,16 +72,21 @@ const Enemies = (props)=>{
   var MapEnemies = ()=>{
     return Battles.map((battle,index)=>{
       return (
-        <div>
+        <div  key={index}>
         {
           (state.App.unlocked >= index) ?
-          <div className='enemy-item'>
-                <h2>{`${battle.name}|${battle.health}HP`}</h2>
-                <p>{battle.description}</p>
-                <Link to={`/play/${index}`}>Battle</Link>
+          <div className='enemy-item' >
+            <img src={`assets/images/${battle.name}.png`}></img>
+            <div className='enemy-desc'>
+              <h2>{`${battle.name}|${battle.health}HP`}</h2>
+              <p>{battle.description}</p>
+              <Link to={`/play/${index}`}>Battle</Link>
+            </div>
+
           </div> :
-          <div>
+          <div className='enemy-item hidden'>
             <h1>?</h1>
+            <p>???</p>
           </div>
         }
         </div>
@@ -88,13 +96,22 @@ const Enemies = (props)=>{
 
   return (
     <div id="enemies">
-        <h2>Enemies page <Link to='/'>Home</Link></h2>
-        <MapEnemies/>
-
+        <Link to='/'>X</Link>
+        <h1>Enemies</h1>
+        {MapEnemies()}
     </div>
   )
 }
 
+const NotFound =()=>{
+  return (
+    <div  style={{position:'absolute',bottom:'0',top:'0', right:'0',left:'0',display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+      <h1>ERROR!</h1>
+      <h2>This page does not exist!</h2>
+      <Link to='/'>Main menu</Link>
+    </div>
+  )
+}
 render(
 
     <Provider store={store}>
@@ -108,6 +125,7 @@ render(
               <Route path='/enemies' component={Enemies} />
               <Redirect from='/play' to='/play/0' />
             </Route>
+            <Route path="*" component={NotFound} />
         </Router>
       </Preloader>
     </Provider>

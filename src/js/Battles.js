@@ -162,7 +162,7 @@ const Battles = [
     {
       name:"Death Thirteen",
       health:5,
-      description: "He knows only one thing. Death. He feeds of his enemies fear.",
+      description: "He knows only one thing. Death. He feeds of the fear of his enemies and rage of his foes.",
       getMove:function(env){
         let rounds = env.rounds.length;
         let eHealthPercent = env.enemyHealth/env.enemyMaxHealth;
@@ -230,8 +230,35 @@ const Battles = [
     {
       name:"Killer Queen",
       health:7,
-      description: "Bites Za dust!",
+      description: "\"I will strike thee first! Address me with respect or feel the wrath of my Bites Za dust!\" - Killer Queen",
       getMove:function(env){
+        let rounds = env.rounds.length;
+        let eHealthPercent = env.enemyHealth/env.enemyMaxHealth;
+        let pHealthPercent = env.playerHealth/3;
+        let moves = moveCount(env.rounds);
+
+        if(rounds === 0) return 0;
+        else{
+          var firstRound = env.rounds[0];
+
+            if(rounds % 2 !== 0){
+
+              if(firstRound.result === "WIN" || firstRound.result === "TIE") return Math.floor( Math.random() * 3 );
+              else{
+                console.log("countering counter");
+                return counter(counter(env.rounds[rounds - 1].playerMove));
+              }
+            }
+            else {
+              var lUsedMove =  getLeastUsedMove(moves.enemy);
+              if( !Array.isArray(lUsedMove) ) return lUsedMove;
+              else{
+                return getEnemyOldestUsedMove(lUsedMove);
+              }
+            }
+
+
+        }
         return 0;
       }
     }

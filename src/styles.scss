@@ -356,6 +356,43 @@ button:active{
   text-align: center;
 }
 
+#enemies{
+  padding:10px;
+}
+
 .enemy-item{
-  background-color:white;
+  border:4px solid white;
+  padding:5px;
+  margin-bottom:10px;
+  @include flex;
+  align-items: center;
+
+  img{
+    width:100px;
+    margin-right:10px;
+  }
+
+  .enemy-desc{
+    a{color:#8e44ad}
+  }
+}
+
+.enemy-item.hidden{
+  border-color: grey;
+  color:grey;
+
+  h1{
+    width:100px;
+    text-align: center;
+    background-color: #ccc;
+    height:70px;
+    margin:0;
+    @include flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  p{
+    margin-left:50px;
+  }
 }
