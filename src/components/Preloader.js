@@ -31,7 +31,7 @@ export default class Preloader extends Component{
       let assets = this.props.images.length ;
       this.setState({assets});
 
-      this.loadImages()
+      this.loadImages();
   }
 
   render(){
