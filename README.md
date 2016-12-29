@@ -9,8 +9,12 @@
 Dueler is my RPG/Fantasy take on the very popular game, RockPaperScissorse. It includes 7 battles against different enemies with unique ais and awesome names. It also features a level unlock system, which gives the game a sense of progression.
 
 # The Technology
-I wanted to use _React_ and _Redux_ to create a seamless app like experience. I used _React-Router_ combined with _React-Motion_ for seamless route transitions. I used Redux to handle the state of the current game in progress and all the application settings. I used _HTML5 local storage_ to store progress throughout the game. 
-I used _CSS(SCSS)_ for all the in game animations.
+I wanted to use _React_ and _Redux_ to create a seamless app like experience. 
+* _React-Router_ parameters are used to define the current state of the game and the application.
+* I use _React-Router_ combined with _React-Motion_ for seamless route transitions. 
+* I use _Redux_ to handle the state of the current game in progress and all the application settings. 
+* _HTML5 local storage_ is used to store progress throughout the game. 
+* _CSS(SCSS)_ is used for all the in game animations.
 
 # The assets
 The images I used for the enemies are all from the free and awesome website [Game-icons.net](http://game-icons.net/) and the music I used was freely distributed but created by _.
