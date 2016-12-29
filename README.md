@@ -6,7 +6,7 @@
 </p>
 
 # The Game
-Dueler is my RPG/Fantasy take on the very popular game, RockPaperScissorse. It includes 7 battles against different enemies with unique ais and awesome names. It also features a level unlock system, which gives the game a sense of progression.
+Dueler is my RPG/Fantasy take on the very popular game, RockPaperScissors. It includes 7 battles against different enemies with unique ais and awesome names. It also features a level unlock system, which gives the game a sense of progression.
 
 # The Technology
 I wanted to use _React_ and _Redux_ to create a seamless app like experience. 
