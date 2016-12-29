@@ -1,5 +1,3 @@
- Play the game at: https://reactdueler.herokuapp.com/ *might take a while to bootup*
-
 <h1 align="center">Dueler</h1>
 <p align="center">
   <img height="500" src="https://github.com/EseOkonofua/React-Dueler/blob/master/github/gameplay.gif" />
@@ -19,3 +17,4 @@ I wanted to use _React_ and _Redux_ to create a seamless app like experience.
 # The assets
 The images I used for the enemies are all from the free and awesome website [Game-icons.net](http://game-icons.net/) and the music I used was freely distributed online by the creator.
 
+ Play the game at: https://reactdueler.herokuapp.com/ *might take a while to bootup*
