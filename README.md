@@ -18,3 +18,4 @@ I wanted to use _React_ and _Redux_ to create a seamless app like experience.
 The images I used for the enemies are all from the free and awesome website [Game-icons.net](http://game-icons.net/) and the music I used was freely distributed online by the creator.
 
  Play the game at: https://reactdueler.herokuapp.com/ *might take a while to bootup*
+_Ese Okonofua_
