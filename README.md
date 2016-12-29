@@ -2,7 +2,6 @@
 
 <h1 align="center">Dueler</h1>
 <p align="center">
-  <img height="150" src="https://github.com/EseOkonofua/React-Dueler/blob/master/public/assets/images/Sly.png"> <br/>
   <img src="https://github.com/EseOkonofua/React-Dueler/blob/master/github/gameplay.gif" />
 </p>
 
